@@ -37,11 +37,6 @@ module "blog_autoscaling" {
   version = "6.5.2"
 
   name = "blog"
-  
-  launch_template = { 
-       elastic_gpu_specifications      = null 
-       elastic_inference_accelerator   = null 
-        }
 
   min_size            = var.asg_min
   max_size            = var.asg_max
