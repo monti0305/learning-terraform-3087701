@@ -15,7 +15,7 @@ data "aws_ami" "app_ami" {
 }
 
 
-module "blog_vpc" {
+module "vpc" {
   source = "terraform-aws-modules/vpc/aws"
 
   name = var.environment.name
@@ -32,9 +32,8 @@ module "blog_vpc" {
 }
 
 
-module "blog_autoscaling" {
+module "autoscaling" {
   source  = "terraform-aws-modules/autoscaling/aws"
-  version = "6.5.2"
 
   name = "blog"
 
@@ -47,10 +46,8 @@ module "blog_autoscaling" {
   image_id            = data.aws_ami.app_ami.id
 }
 
-module "blog_alb" {
+module "alb" {
   source  = "terraform-aws-modules/alb/aws"
-  version = "~> 6.0"
-
   name = "blog-alb"
 
   load_balancer_type = "application"
@@ -81,9 +78,8 @@ module "blog_alb" {
   }
 }
 
-module "blog_sg" {
+module "vote_service_sg" {
   source  = "terraform-aws-modules/security-group/aws"
-  version = "4.13.0"
 
   vpc_id  = module.blog_vpc.vpc_id
   name    = "blog"
