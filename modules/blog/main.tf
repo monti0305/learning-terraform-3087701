@@ -40,7 +40,6 @@ module "autoscaling" {
   min_size            = var.asg_min
   max_size            = var.asg_max
   vpc_zone_identifier = module.vpc.public_subnets
-  target_group_arns   = module.alb.target_groups_arns
   security_groups     = [module.vote_service_sg.security_group_id]
   instance_type       = var.instance_type
   image_id            = data.aws_ami.app_ami.id
